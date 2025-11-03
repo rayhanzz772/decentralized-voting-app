@@ -4,7 +4,7 @@ const Header = () => {
   const { account, balance, connectWallet, disconnectWallet, truncateAddress, isConnecting } = useWallet();
 
   return (
-    <header className="bg-background-light border-b border-background-lighter">
+    <header className="bg-background-light border-b border-[#3d444d]">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo/Title */}

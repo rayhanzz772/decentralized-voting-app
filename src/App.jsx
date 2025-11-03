@@ -17,7 +17,7 @@ function VotingDashboard() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container bg-[#0d1117] mx-auto px-4 py-8">
       {/* Contract Info Banner */}
       <ContractInfo />
 

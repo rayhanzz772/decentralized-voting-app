@@ -12,7 +12,7 @@ const CandidateCard = ({ candidate, onVote, isVoting, hasVoted }) => {
 
   return (
     <div 
-      className="bg-background-light rounded-xl p-6 border border-background-lighter hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/20"
+      className="bg-[#151b23] rounded-xl p-6 border border-[#3d444d] hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/20"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -38,7 +38,7 @@ const CandidateCard = ({ candidate, onVote, isVoting, hasVoted }) => {
           </div>
           <div>
             <h3 className="text-xl font-bold text-white">{name}</h3>
-            <p className="text-sm text-gray-400">Candidate #{id}</p>
+            <p className="text-sm text-gray-400">Candidate #{id+1}</p>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ export default function ResultsBar({ candidates, refreshing }) {
   const total = candidates.reduce((sum, c) => sum + (c.voteCount || 0), 0) || 1;
 
   return (
-    <div className="bg-background-light border border-background-lighter rounded-xl p-6 mt-8 max-w-3xl mx-auto shadow-lg">
+    <div className="bg-background-light border border-[#3d444d] rounded-xl p-6 mt-8 max-w-3xl mx-auto shadow-lg">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h4 className="text-xl font-bold text-white">Live Results</h4>
