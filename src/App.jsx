@@ -103,20 +103,6 @@ function VotingDashboard() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Stats Section */}
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="max-w-6xl mx-auto mb-12"
-      >
-        <Stats
-          candidates={candidates}
-          totalVotes={totalVotes}
-          votingStatus="active"
-        />
-      </motion.div>
-
       {/* Candidates Grid */}
       <motion.div
         initial={{ y: 20, opacity: 0 }}
@@ -133,6 +119,20 @@ function VotingDashboard() {
             hasVoted={hasVoted}
           />
         ))}
+      </motion.div>
+
+      {/* Stats Section */}
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="max-w-6xl mx-auto mb-12"
+      >
+        <Stats
+          candidates={candidates}
+          totalVotes={totalVotes}
+          votingStatus="active"
+        />
       </motion.div>
 
       {/* Vote Confirmation Modal */}
