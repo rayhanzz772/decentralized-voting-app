@@ -1,7 +1,7 @@
 // src/hooks/useVoting.js
 import { useEffect, useState, useCallback } from 'react';
 import toast from 'react-hot-toast';
-import { getContract, getSigner } from '../lib/contract';
+import { getContract, getSigner, getProvider } from '../lib/contract';
 
 /**
  * Custom hook for voting operations
@@ -23,13 +23,18 @@ export function useVoting({ account, pollInterval = 10000 }) {
   const refresh = useCallback(async () => {
     setRefreshing(true);
     try {
-      const signer = await getSigner();
-      const contract = getContract(signer);
+      // Use a signer when account is present (for any account-specific calls).
+      // Otherwise use a read-only provider so the hook still works when wallet isn't connected
+      const providerOrSigner = account ? await getSigner() : await getProvider();
+      const contract = getContract(providerOrSigner);
 
-      // Check if current account has voted
+      // If user is connected, check if current account has voted
       if (account) {
         const voted = await contract.hasVoted(account);
         setHasVoted(Boolean(voted));
+      } else {
+        // Ensure hasVoted is reset when no account is connected
+        setHasVoted(false);
       }
 
       // Fetch candidates from contract (getCandidates returns array of {name, voteCount})
@@ -45,7 +50,10 @@ export function useVoting({ account, pollInterval = 10000 }) {
       setCandidates(transformedCandidates);
     } catch (err) {
       console.error('Refresh error:', err);
-      toast.error('Failed to load voting data');
+      // Only show the toast error when a user/account is connected — avoid alarming users who haven't connected a wallet
+      if (account) {
+        toast.error('Failed to load voting data');
+      }
     } finally {
       setRefreshing(false);
     }
