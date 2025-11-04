@@ -36,7 +36,7 @@ const Header = () => {
               <button
                 onClick={connectWallet}
                 disabled={isConnecting}
-                className="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-primary/50"
+                className="bg-[#151b23] border-[0.5px] border-[#3d444d] hover:bg-[#1f6feb] hover:border-[#1f6feb]/50 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 disabled:opacity-50 shadow-lg hover:shadow-primary/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1f6feb]/30"
               >
                 {isConnecting ? (
                   <>

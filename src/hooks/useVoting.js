@@ -12,6 +12,8 @@ import { getContract, getSigner, getProvider } from '../lib/contract';
  * @returns {Object} Voting state and functions
  */
 export function useVoting({ account, pollInterval = 10000 }) {
+  // Debug flag: when true, skip 'hasVoted' and 'loading' checks so you can interact freely while debugging
+  const DEBUG_DISABLE_VOTE = import.meta.env.VITE_DEBUG_DISABLE_VOTE === 'true';
   const [candidates, setCandidates] = useState([]);
   const [hasVoted, setHasVoted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -28,13 +30,18 @@ export function useVoting({ account, pollInterval = 10000 }) {
       const providerOrSigner = account ? await getSigner() : await getProvider();
       const contract = getContract(providerOrSigner);
 
-      // If user is connected, check if current account has voted
-      if (account) {
-        const voted = await contract.hasVoted(account);
-        setHasVoted(Boolean(voted));
-      } else {
-        // Ensure hasVoted is reset when no account is connected
+      // If debug mode active, always reset hasVoted to false and skip account-specific checks
+      if (DEBUG_DISABLE_VOTE) {
         setHasVoted(false);
+      } else {
+        // If user is connected, check if current account has voted
+        if (account) {
+          const voted = await contract.hasVoted(account);
+          setHasVoted(Boolean(voted));
+        } else {
+          // Ensure hasVoted is reset when no account is connected
+          setHasVoted(false);
+        }
       }
 
       // Fetch candidates from contract (getCandidates returns array of {name, voteCount})
@@ -64,6 +71,18 @@ export function useVoting({ account, pollInterval = 10000 }) {
    * @param {number} candidateId - Candidate ID (0, 1, or 2)
    */
   const vote = useCallback(async (candidateId) => {
+    // If debug flag is enabled, skip checks and simulate a successful vote without blocking
+    if (DEBUG_DISABLE_VOTE) {
+      toast.success('Debug: simulated vote (hasVoted/isVoting disabled)');
+      // Refresh candidates (read-only)
+      try {
+        await refresh();
+      } catch (e) {
+        // ignore refresh errors in debug
+      }
+      return null;
+    }
+
     if (hasVoted) {
       toast.error('You have already voted!');
       return;

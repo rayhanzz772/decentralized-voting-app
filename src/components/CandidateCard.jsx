@@ -12,7 +12,7 @@ const CandidateCard = ({ candidate, onVote, isVoting, hasVoted }) => {
 
   return (
     <div 
-      className="bg-[#151b23] rounded-xl p-6 border border-[#3d444d] hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/20"
+      className="bg-[#0d1117] rounded-xl p-6 border border-[#3d444d] hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-primary/20"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -43,7 +43,6 @@ const CandidateCard = ({ candidate, onVote, isVoting, hasVoted }) => {
         </div>
       </div>
 
-      {/* Vote Count Display */}
       <div className="bg-background rounded-lg p-4 mb-4">
         <p className="text-sm text-gray-400 mb-1">Total Votes</p>
         <div className="flex items-baseline space-x-2">
@@ -52,16 +51,14 @@ const CandidateCard = ({ candidate, onVote, isVoting, hasVoted }) => {
         </div>
       </div>
 
-      {/* Vote Button */}
       <button
-        onClick={handleVote}
         disabled={hasVoted || isVoting}
-        className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${
+        className={`w-full py-2 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${
           hasVoted
             ? 'bg-background-lighter text-gray-400 cursor-not-allowed'
             : isVoting
             ? 'bg-primary/50 text-white cursor-wait'
-            : 'bg-primary hover:bg-primary-dark text-white hover:shadow-lg hover:shadow-primary/50 transform hover:-translate-y-0.5'
+            : 'bg-[#212830] border-[0.5px] border-[#3d444d] text-white hover:shadow-lg hover:border-[#1f6feb] transform hover:-translate-y-0.5'
         }`}
       >
         {isVoting ? (
@@ -104,7 +101,6 @@ const CandidateCard = ({ candidate, onVote, isVoting, hasVoted }) => {
         )}
       </button>
 
-      {/* Already Voted Message */}
       {hasVoted && (
         <p className="text-center text-xs text-accent mt-2">
           ✓ You have already cast your vote
