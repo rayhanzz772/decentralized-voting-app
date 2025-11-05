@@ -28,6 +28,40 @@ body {
   box-sizing: border-box;
 }
 
+/* Cursor styles - Ensure all interactive elements have proper cursor */
+button, 
+[role="button"],
+[type="button"],
+[type="submit"],
+[type="reset"],
+a,
+label[for],
+select,
+summary,
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+button:disabled,
+[disabled],
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea {
+  cursor: text;
+}
+
+/* Ensure Framer Motion elements maintain cursor */
+[data-framer-component-type] button,
+motion-button {
+  cursor: pointer !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
